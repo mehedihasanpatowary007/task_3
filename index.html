@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My to do list</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+<body>
+    <header>
+        <h1>My Task list:</h1>
+        <form id="task_list">
+            <input 
+                type="text" 
+                id="task_input" 
+                placeholder="Add your task"
+                required
+                minlength="1"
+                maxlength="70"
+            />
+            <input 
+                type="submit" 
+                id="task_submit" 
+                value="Add Task" 
+            />
+        </form>
+    </header>
+    <main>
+        <section  class="added_task_list">
+            <h2>TASK LIST</h2>
+            <div id ="tasks">
+                <!-- <div class ="task">
+                    <div class ="content">
+                        <input 
+                            type="text"
+                            class="text"
+                            value="My shiny task"
+                            readonly
+                        >
+                    </div>
+                    <div class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+    </main>
+    <script src="./js/index.js"></script>
+</body>
+</html>

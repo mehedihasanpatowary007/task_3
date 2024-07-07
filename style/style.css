@@ -29,7 +29,7 @@ body{
 	transform: translateX(-50%);
 	visibility: hidden;
 	color: green;
-	text-shadow: 0px 0px 20px rgb(0, 230, 0);
+	text-shadow: 0px 0px 50px rgb(70, 211, 70);
 }
 
 .text:focus{

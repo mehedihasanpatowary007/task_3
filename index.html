@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My to do list</title>
+    <script src="https://kit.fontawesome.com/e7706c9a24.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
     <header>
-        <h1>My Task list:</h1>
+        <h1>Write your daily task :</h1>
         <form id="task_list">
             <input 
                 type="text" 
@@ -17,17 +18,15 @@
                 required
                 minlength="1"
                 maxlength="70"
+                autofocus
             />
-            <input 
-                type="submit" 
-                id="task_submit" 
-                value="Add Task" 
-            />
+            <button id="task_submit" type="submit"><i class="fa-solid fa-list-check"></i></button>
         </form>
     </header>
     <main>
         <section  class="added_task_list">
-            <h2>TASK LIST</h2>
+            <h2>Here your daily task :</h2>
+            <p id ="notification"></p>
             <div id ="tasks">
                 <!-- <div class ="task">
                     <div class ="content">
@@ -40,6 +39,7 @@
                     </div>
                     <div class="actions">
                         <button class="edit">Edit</button>
+                        <button class="success">Success</button>
                         <button class="delete">Delete</button>
                     </div>
                 </div> -->

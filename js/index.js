@@ -1,61 +1,114 @@
-window.addEventListener('load', () => {
-	const form = document.querySelector("#task_list");
-	const input = document.querySelector("#task_input");
-	const listElement = document.querySelector("#tasks");
+let setTimeoutId = null;
 
-	form.addEventListener('submit', (e) => {
-		e.preventDefault();
+function notification(notification, innerText, beforeVisibility, afterVisibility) {
+  const setNotification = document.getElementById(notification);
+  setNotification.innerText = innerText;
+  setNotification.style.visibility = beforeVisibility;
 
-		const task = input.value;
+  clearTimeout(setTimeoutId);
+  setTimeoutId = setTimeout(() => {
+    setNotification.style.visibility = afterVisibility;
+  }, 2000);
+}
 
-		const taskElement = document.createElement('div');
-		taskElement.classList.add('task');
+window.addEventListener("load", () => {
+  const form = document.querySelector("#task_list");
+  const input = document.querySelector("#task_input");
+  const listElement = document.querySelector("#tasks");
 
-		const taskContentElement = document.createElement('div');
-		taskContentElement.classList.add('content');
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-		taskElement.appendChild(taskContentElement);
+    const task = input.value;
 
-		const taskInputElement = document.createElement('input');
-		taskInputElement.classList.add('text');
-		taskInputElement.type = 'text';
-		taskInputElement.value = task;
-		taskInputElement.setAttribute('readonly', 'readonly');
+    const taskElement = document.createElement("div");
+    taskElement.classList.add("task");
 
-		taskContentElement.appendChild(taskInputElement);
+    const taskContentElement = document.createElement("div");
+    taskContentElement.classList.add("content");
+    taskElement.appendChild(taskContentElement);
 
-		const taskActionsElement = document.createElement('div');
-		taskActionsElement.classList.add('actions');
-		
-		const taskEditElement = document.createElement('button');
-		taskEditElement.classList.add('edit');
-		taskEditElement.innerText = 'Edit';
+    const taskInputElement = document.createElement("p");
+    taskInputElement.style.wordBreak = "break-all";
+    taskInputElement.classList.add("text");
+    taskInputElement.type = "text";
+    taskInputElement.innerText = task;
+    taskInputElement.setAttribute("readonly", "readonly");
+    taskContentElement.appendChild(taskInputElement);
 
-		const taskDeleteElement = document.createElement('button');
-		taskDeleteElement.classList.add('delete');
-		taskDeleteElement.innerText = 'Delete';
+    const taskActionsElement = document.createElement("div");
+    taskActionsElement.classList.add("actions");
 
-		taskActionsElement.appendChild(taskEditElement);
-		taskActionsElement.appendChild(taskDeleteElement);
+    //edit button create and set attribute
+    const taskEditElement = document.createElement("button");
+    taskEditElement.classList.add("edit");
+    taskEditElement.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+    taskEditElement.setAttribute("data", "edit");
 
-		taskElement.appendChild(taskActionsElement);
+    //success button create
+    const successElement = document.createElement("button");
+    successElement.classList.add("success");
+    successElement.innerHTML = `<i class="fa-solid fa-check"></i>`;
 
-		listElement.appendChild(taskElement);
+    //success button addEventListener
+    successElement.addEventListener('click', function(){
+      listElement.removeChild(taskElement);
+      notification(
+        "notification",
+        "Task complete successfully",
+        "visible",
+        "hidden"
+      );
+    })
 
-		input.value = '';
-		taskEditElement.addEventListener('click', () => {
-			if (taskEditElement.innerText.toLowerCase() == "edit") {
-				taskEditElement.innerText = "Save";
-				taskInputElement.removeAttribute("readonly");
-				taskInputElement.focus();
-			} else {
-				taskEditElement.innerText = "Edit";
-				taskInputElement.setAttribute("readonly", "readonly");
-			}
-		});
+    
+    const taskDeleteElement = document.createElement("button");
+    taskDeleteElement.classList.add("delete");
+    taskDeleteElement.innerHTML = `<i class="fa-solid fa-trash"></i>`;
 
-		taskDeleteElement.addEventListener('click', () => {
-			listElement.removeChild(taskElement);
-		});
-	});
+    taskActionsElement.appendChild(taskEditElement);
+    taskActionsElement.appendChild(successElement);
+    taskActionsElement.appendChild(taskDeleteElement);
+    taskElement.appendChild(taskActionsElement);
+    listElement.appendChild(taskElement);
+    input.value = "";
+
+    notification(
+      "notification",
+      "Task added successfully",
+      "visible",
+      "hidden"
+    );
+
+    taskEditElement.addEventListener("click", () => {
+      if (taskEditElement.getAttribute("data").toLowerCase() == "edit") {
+        taskInputElement.contentEditable = true;
+        taskEditElement.innerHTML = `<i class="fa-solid fa-floppy-disk"></i>`;
+        taskEditElement.setAttribute("data", "");
+        taskInputElement.focus();
+      } else {
+        notification(
+        "notification",
+        "Edit saved successfully",
+        "visible",
+        "hidden"
+        );
+        taskEditElement.setAttribute("data", "edit");
+        
+        taskEditElement.innerHTML = `<i class="fa-solid fa-pen-to-square"></i>`;
+        taskInputElement.contentEditable = false;
+        taskInputElement.setAttribute("readonly", "readonly");
+      }
+    });
+    taskDeleteElement.addEventListener("click", () => {
+      listElement.removeChild(taskElement);
+
+      notification(
+        "notification",
+        "Task deleted",
+        "visible",
+        "hidden"
+      );
+    });
+  });
 });

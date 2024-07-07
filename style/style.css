@@ -71,14 +71,12 @@ input, button{
 #task_submit{
 	font-size: 50px;
 	padding:5px 10px;
+	cursor: pointer;
 	
 }
 
-#task_submit:hover{
-    opacity: 0.8;
-}
 #task_submit:active{
-    opacity: 0.5;
+    opacity: 0.6;
 }
 main {
 	flex: 1 1 0%;
